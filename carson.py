@@ -2,6 +2,7 @@
 
 from subprocess import call
 import sys
+import os
 
 args = sys.argv
 
@@ -24,3 +25,8 @@ if len(repos) == 0:
     print "I need some repos to " + command
     docs()
     exit(0)
+
+registered = open(os.path.dirname(os.path.realpath(__file__)) + "/repositories", "r")
+
+for r in repos:
+    pass
