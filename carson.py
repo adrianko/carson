@@ -26,7 +26,18 @@ if len(repos) == 0:
     docs()
     exit(0)
 
-registered = open(os.path.dirname(os.path.realpath(__file__)) + "/repositories", "r")
+current_path = os.path.dirname(os.path.realpath(__file__))
+repositories_file = open(current_path + "/repositories", "r")
+registered = {}
+
+for r in repositories_file:
+    split = r.split("=")
+    registered[split[0].strip()] = split[1].strip()
 
 for r in repos:
-    pass
+    if registered.has_key(r):
+        path = registered[r]
+        call(["cd", path])
+        call(["git", command, "origin", "master"])
+    else:
+        print r + " is not registered"
