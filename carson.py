@@ -11,6 +11,7 @@ def docs():
 
 if len(args) == 1:
     print "I need a command"
+    docs()
     exit(0)
 
 # remove script
@@ -21,3 +22,5 @@ repos = [repo for repo in args]
 
 if len(repos) == 0:
     print "I need some repos to " + command
+    docs()
+    exit(0)
