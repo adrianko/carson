@@ -6,8 +6,8 @@ import sys
 args = sys.argv
 
 def docs():
-    print "pull    Pull commits from origin/master on all repos"
-    print "push    Push unsynced commits to origin/master on all repos"
+    print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
+    print "push <repo>, <repo> ...    Push unsynced commits to origin/master on all repos"
 
 if len(args) == 1:
     print "I need a command"
