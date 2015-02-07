@@ -4,10 +4,6 @@ from subprocess import call
 import sys
 import os
 
-"""
-TODO add support for private repositories (Windows)
-"""
-
 def docs():
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
     print "push <repo>, <repo> ...    Push unsynced commits to origin/master on all repos"
