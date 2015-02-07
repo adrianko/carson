@@ -36,8 +36,7 @@ for r in repositories_file:
 
 for r in repos:
     if r in registered.keys():
-        path = registered[r]
-        os.chdir(path)
+        os.chdir(registered[r])
         call(["git", command, "origin", "master"])
         os.chdir(current_path)
     else:
