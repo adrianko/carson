@@ -35,9 +35,9 @@ for r in repositories_file:
     registered[split[0].strip()] = split[1].strip()
 
 for r in repos:
-    if registered.has_key(r):
+    if r in registered.keys():
         path = registered[r]
-        call(["cd", path])
-        call(["git", command, "origin", "master"])
+        call(["cmd", "/c", "cd", path])
+        call(["cmd", "/c", "git", command, "origin", "master"])
     else:
         print r + " is not registered"
