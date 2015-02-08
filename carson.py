@@ -28,7 +28,7 @@ if len(repos) == 0:
     exit(0)
 
 current_path = os.path.dirname(os.path.realpath(__file__))
-repositories_file = open(current_path + "/repositories", "r")
+repositories_file = open("~/.carson/repositories", "r")
 registered = {}
 
 for r in repositories_file:
@@ -41,4 +41,4 @@ for r in repos:
         call(["git", command, "origin", "master"])
         os.chdir(current_path)
     else:
-        print r + " is not registered"
+        print r + " is not a registered repo"
