@@ -37,17 +37,28 @@ if len(repos) == 0:
     exit(0)
 
 current_path = os.path.dirname(os.path.realpath(__file__))
-repositories_file = open(expanduser("~") + "/.carson/repositories", "r")
+repositories_path = expanduser("~") + "/.carson/repositories"
+repositories_file = open(repositories_path, "r")
 registered = {}
 
 for r in repositories_file:
     split = r.split("=")
     registered[split[0].strip()] = split[1].strip()
 
-for r in repos:
-    if r in registered.keys():
-        os.chdir(registered[r])
-        call(["git", command, "origin", "master"])
-        os.chdir(current_path)
+if command == "register":
+    if len(repos) == 0:
+        print "Need a name and a path"
+    elif len(repos) == 1:
+        print "Need a path"
     else:
-        print r + " is not a registered repo"
+        with open(repositories_path, "a") as register:
+            register.write(repos[0].strip() + " = " + repos[1].strip() + "\n")
+        print repos[0].strip() + " successfully registered at path " + repos[1].strip()
+else:
+    for r in repos:
+        if r in registered.keys():
+            os.chdir(registered[r])
+            call(["git", command, "origin", "master"])
+            os.chdir(current_path)
+        else:
+            print r + " is not a registered repo"
