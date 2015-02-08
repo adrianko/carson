@@ -3,6 +3,7 @@
 from subprocess import call
 import sys
 import os
+from os.path import expanduser
 
 def docs():
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
@@ -28,7 +29,7 @@ if len(repos) == 0:
     exit(0)
 
 current_path = os.path.dirname(os.path.realpath(__file__))
-repositories_file = open("~/.carson/repositories", "r")
+repositories_file = open(expanduser("~") + "/.carson/repositories", "r")
 registered = {}
 
 for r in repositories_file:
