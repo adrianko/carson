@@ -5,6 +5,13 @@ import sys
 import os
 from os.path import expanduser
 
+"""
+TODO Ensure file exists
+TODO Create file if not exists
+TODO List registered repos
+TODO Add repo unregister
+TODO Add repo modify
+"""
 def docs():
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
     print "push <repo>, <repo> ...    Push unsynced commits to origin/master on all repos"
