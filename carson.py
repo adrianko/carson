@@ -23,56 +23,55 @@ def docs():
 
 args = sys.argv
 
-if len(args) == 1:
-    docs()
-    exit(0)
+if len(args) > 2:
+    # remove script
+    args.pop(0)
 
-# remove script
-args.pop(0)
+    command = args.pop(0)
+    repos = [repo for repo in args]
 
-command = args.pop(0)
-repos = [repo for repo in args]
+    if command:
+        current_path = os.path.dirname(os.path.realpath(__file__))
+        repositories_path = expanduser("~") + "/.carson/repositories"
 
-if len(repos) == 0 and command != "list":
-    print "I need some repos to " + command
-    docs()
-    exit(0)
+        if not os.path.isdir(expanduser("~") + "/.carson"):
+            os.makedirs(expanduser("~") + "/.carson")
 
-current_path = os.path.dirname(os.path.realpath(__file__))
-repositories_path = expanduser("~") + "/.carson/repositories"
+        if not os.path.exists(repositories_path):
+            open(repositories_path, "a").close()
 
-if not os.path.isdir(expanduser("~") + "/.carson"):
-    os.makedirs(expanduser("~") + "/.carson")
+        repositories_file = open(repositories_path, "r")
+        registered = {}
 
-if not os.path.exists(repositories_path):
-    open(repositories_path, "a").close()
+        for r in repositories_file:
+            split = r.split("=")
+            registered[split[0].strip()] = split[1].strip()
 
-repositories_file = open(repositories_path, "r")
-registered = {}
+        if command == "register":
+            if len(repos) == 0:
+                print "Need a name and a path"
+            elif len(repos) == 1:
+                print "Need a path"
+            else:
+                with open(repositories_path, "a") as register:
+                    register.write(repos[0].strip() + " = " + repos[1].strip() + "\n")
+                print repos[0].strip() + " successfully registered at path " + repos[1].strip()
+        elif command == "list":
+            pad_length = max(len(x) for x in registered) + 5
 
-for r in repositories_file:
-    split = r.split("=")
-    registered[split[0].strip()] = split[1].strip()
-
-if command == "register":
-    if len(repos) == 0:
-        print "Need a name and a path"
-    elif len(repos) == 1:
-        print "Need a path"
-    else:
-        with open(repositories_path, "a") as register:
-            register.write(repos[0].strip() + " = " + repos[1].strip() + "\n")
-        print repos[0].strip() + " successfully registered at path " + repos[1].strip()
-elif command == "list":
-    pad_length = max(len(x) for x in registered) + 5
-
-    for r, p in registered.iteritems():
-        print r.ljust(pad_length, " ") + p
-else:
-    for r in repos:
-        if r in registered.keys():
-            os.chdir(registered[r])
-            call(["git", command, "origin", "master"])
-            os.chdir(current_path)
+            for r, p in registered.iteritems():
+                print r.ljust(pad_length, " ") + p
+        elif command == "push" or command == "pull":
+            for r in repos:
+                if r in registered.keys():
+                    os.chdir(registered[r])
+                    call(["git", command, "origin", "master"])
+                    os.chdir(current_path)
+                else:
+                    print r + " is not a registered repo"
         else:
-            print r + " is not a registered repo"
+            docs()
+    else:
+        docs()
+else:
+    docs()
