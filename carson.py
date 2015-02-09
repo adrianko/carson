@@ -61,6 +61,8 @@ if len(args) > 2:
                     print "SUCCESS: " + repo_name + " successfully registered at path " + repo_path
                 else:
                     print "ERROR: " + repo_name + " already registered at path " + registered[repo_name]
+        elif command == "unregister":
+            pass
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
 
