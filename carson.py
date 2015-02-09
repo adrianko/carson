@@ -32,7 +32,7 @@ args.pop(0)
 command = args.pop(0)
 repos = [repo for repo in args]
 
-if len(repos) == 0:
+if len(repos) == 0 and command != "list":
     print "I need some repos to " + command
     docs()
     exit(0)
@@ -55,6 +55,11 @@ if command == "register":
         with open(repositories_path, "a") as register:
             register.write(repos[0].strip() + " = " + repos[1].strip() + "\n")
         print repos[0].strip() + " successfully registered at path " + repos[1].strip()
+elif command == "list":
+    pad_length = max(len(x) for x in registered) + 5
+    
+    for r, p in registered.iteritems():
+        print r.ljust(pad_length, " ") + p
 else:
     for r in repos:
         if r in registered.keys():
