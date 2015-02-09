@@ -58,11 +58,26 @@ if len(args) > 2:
                 if repo_name not in registered.keys():
                     with open(repositories_path, "a") as register:
                         register.write(repo_name + " = " + repo_path + "\n")
-                    print "SUCCESS: " + repo_name + " successfully registered at path " + repo_path
+                    print "SUCCESS: " + repo_name + " registered at path " + repo_path
                 else:
                     print "ERROR: " + repo_name + " already registered at path " + registered[repo_name]
         elif command == "unregister":
-            pass
+            if len(repos) == 0:
+                print "Need a name"
+            else:
+                repo_name = repos[0].strip()
+
+                if repo_name in registered.keys():
+                    open(repositories_path, "w").close()
+
+                    with open(repositories_path, "a") as register:
+                        for r, p in registered.iteritems():
+                            if r != repo_name:
+                                register.write(r + " = " + p + "\n")
+                            else:
+                                print "SUCCESS: " + repo_name + " unregistered"
+                else:
+                    print "ERROR: " + repo_name + " isn't registered"
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
 
