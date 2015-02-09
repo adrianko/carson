@@ -8,7 +8,6 @@ from os.path import expanduser
 """
 TODO Ensure file exists
 TODO Create file if not exists
-TODO List registered repos
 TODO Add repo unregister
 TODO Add repo modify
 TODO Check if repo already registered when registering
@@ -57,7 +56,7 @@ if command == "register":
         print repos[0].strip() + " successfully registered at path " + repos[1].strip()
 elif command == "list":
     pad_length = max(len(x) for x in registered) + 5
-    
+
     for r, p in registered.iteritems():
         print r.ljust(pad_length, " ") + p
 else:
