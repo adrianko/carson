@@ -11,6 +11,7 @@ TODO Create file if not exists
 TODO List registered repos
 TODO Add repo unregister
 TODO Add repo modify
+TODO Check if repo already registered when registering
 """
 def docs():
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
