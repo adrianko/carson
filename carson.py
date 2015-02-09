@@ -12,6 +12,7 @@ TODO List registered repos
 TODO Add repo unregister
 TODO Add repo modify
 TODO Check if repo already registered when registering
+TODO Suppress output if up to date and display custom message
 """
 def docs():
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
