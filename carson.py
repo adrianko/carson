@@ -6,8 +6,6 @@ import os
 from os.path import expanduser
 
 """
-TODO Ensure file exists
-TODO Create file if not exists
 TODO Add repo unregister
 TODO Add repo modify
 TODO Check if repo already registered when registering
