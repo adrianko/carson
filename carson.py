@@ -16,7 +16,7 @@ def docs():
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
     print "push <repo>, <repo> ...    Push unsynced commits to origin/master on all repos"
     print "register <repo> <path>     Register a repo with carson"
-
+    print "list                       List all registered repos"
 
 args = sys.argv
 
