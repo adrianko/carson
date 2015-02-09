@@ -14,6 +14,7 @@ TODO Add push/pull all repos command
 TODO Add status command for all or repo list
 """
 def docs():
+    print "Carson - git helper tool"
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
     print "push <repo>, <repo> ...    Push unsynced commits to origin/master on all repos"
     print "register <repo> <path>     Register a repo"
