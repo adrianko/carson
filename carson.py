@@ -18,7 +18,8 @@ TODO Add status command for all or repo list
 def docs():
     print "pull <repo>, <repo> ...    Pull commits from origin/master on all repos"
     print "push <repo>, <repo> ...    Push unsynced commits to origin/master on all repos"
-    print "register <repo> <path>     Register a repo with carson"
+    print "register <repo> <path>     Register a repo"
+    print "unregister <repo>          Unregister a repo"
     print "list                       List all registered repos"
 
 args = sys.argv
