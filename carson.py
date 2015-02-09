@@ -6,7 +6,6 @@ import os
 from os.path import expanduser
 
 """
-TODO Add repo unregister
 TODO Add repo modify
 TODO Suppress output if up to date and display custom message
 TODO Add push/pull all repos command
