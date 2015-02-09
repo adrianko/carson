@@ -41,6 +41,13 @@ if len(repos) == 0 and command != "list":
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 repositories_path = expanduser("~") + "/.carson/repositories"
+
+if not os.path.isdir(expanduser("~") + "/.carson"):
+    os.makedirs(expanduser("~") + "/.carson")
+
+if not os.path.exists(repositories_path):
+    open(repositories_path, "a").close()
+
 repositories_file = open(repositories_path, "r")
 registered = {}
 
