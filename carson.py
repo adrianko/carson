@@ -53,9 +53,15 @@ if len(args) > 2:
             elif len(repos) == 1:
                 print "Need a path"
             else:
-                with open(repositories_path, "a") as register:
-                    register.write(repos[0].strip() + " = " + repos[1].strip() + "\n")
-                print repos[0].strip() + " successfully registered at path " + repos[1].strip()
+                repo_name = repos[0].strip()
+                repo_path = repos[1].strip()
+
+                if repo_name not in registered.keys():
+                    with open(repositories_path, "a") as register:
+                        register.write(repo_name + " = " + repo_path + "\n")
+                    print "SUCCESS: " + repo_name + " successfully registered at path " + repo_path
+                else:
+                    print "ERROR: " + repo_name + " already registered at path " + registered[repo_name]
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
 
