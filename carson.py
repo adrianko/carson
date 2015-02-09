@@ -23,7 +23,6 @@ def docs():
 args = sys.argv
 
 if len(args) == 1:
-    print "I need a command"
     docs()
     exit(0)
 
