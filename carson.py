@@ -134,16 +134,26 @@ if len(args) >= 2:
 
                 if repo_name in registered.keys() or repo_path in registered.values():
                     modified = False
+
                     for r, p in registered.iteritems():
                         if r == repo_name and p != repo_path:
+                            registered[repo_name] = repo_path
                             modified = True
-                            pass
+                            break
                         elif r != repo_name and p == repo_path:
+                            del registered[r]
+                            registered[repo_name] = repo_path
                             modified = True
+                            break
 
                     if modified is False:
                         printError("path already exist with same name")
                     else:
+                        open(config_file, "w").close()
+
+                        with open(config_file, "a") as register:
+                            for r, p in registered.iteritems():
+                                register.write(r + " = " + p + "\n")
                         printSuccess(repo_name + " now at " + repo_path)
                 else:
                     printError("both repo and path do not exist")
