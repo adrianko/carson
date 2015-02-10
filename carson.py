@@ -70,12 +70,12 @@ if len(args) >= 2:
                 if repo_name not in registered.keys():
                     with open(config_file, "a") as register:
                         register.write(repo_name + " = " + repo_path + "\n")
-                    print "\033[92mSUCCESS:033[0m " + repo_name + " registered at path " + repo_path
+                    print cPrint("green", "SUCCESS: ") + repo_name + " registered at path " + repo_path
                 else:
                     print cPrint("red", "ERROR: ") + repo_name + " already registered at path " + registered[repo_name]
         elif command == "unregister":
             if len(repos) == 0:
-                print "\033[91mERROR:\033[0m " + "Need a name"
+                print cPrint("red", "ERROR: ") + "Need a name"
             else:
                 repo_name = repos[0].strip()
 
@@ -87,14 +87,14 @@ if len(args) >= 2:
                             if r != repo_name:
                                 register.write(r + " = " + p + "\n")
                             else:
-                                print "\033[92mSUCCESS:033[0m " + repo_name + " unregistered"
+                                print cPrint("green", "SUCCESS: ") + repo_name + " unregistered"
                 else:
                     print cPrint("red", "ERROR: ") + repo_name + " is not a registered repo"
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
 
             if len(registered) > 0:
-                print "\033[1m" + "Repo".ljust(pad_length, " ") + "Path\033[0m"
+                print cPrint("bold", "Repo".ljust(pad_length, " ") + "Path")
 
                 for r, p in registered.iteritems():
                     print r.ljust(pad_length, " ") + p
