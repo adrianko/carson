@@ -79,12 +79,9 @@ if len(args) >= 2:
                 repo_name = repos[0]
 
                 if repo_name in registered.keys():
-                    open(config_file, "w").close()
-
-                    with open(config_file, "a") as register:
-                        for r, p in registered.iteritems():
-                            if r != repo_name: register.write(r + " = " + p + "\n")
-                            else: printSuccess(repo_name + " unregistered")
+                    del registered[repo_name]
+                    rebuildFile(config_file, registered)
+                    printSuccess(repo_name + " unregistered")
                 else: printError(repo_name + " is not a registered repo")
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
