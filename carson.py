@@ -83,13 +83,19 @@ if len(args) > 2:
             for r, p in registered.iteritems():
                 print r.ljust(pad_length, " ") + p
         elif command == "push" or command == "pull":
-            for r in repos:
-                if r in registered.keys():
+            if len(repos) > 0:
+                for r in repos:
+                    if r in registered.keys():
+                        os.chdir(registered[r])
+                        call(["git", command, "origin", "master"])
+                        os.chdir(current_path)
+                    else:
+                        print r + " is not a registered repo"
+            else:
+                for r, p in registered.iteritems():
                     os.chdir(registered[r])
                     call(["git", command, "origin", "master"])
                     os.chdir(current_path)
-                else:
-                    print r + " is not a registered repo"
         else:
             docs()
     else:
