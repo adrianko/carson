@@ -28,8 +28,7 @@ def git(cur_path, path, command):
     os.chdir(cur_path)
 
 def cPrint(colour, string):
-    colours = { "green": "92", "red": "91", "bold": "1" }
-    return "\033[" + colours[colour] + "m" + string + "\033[0m"
+    return "\033[" + {"green": "92", "red": "91", "bold": "1"}[colour] + "m" + string + "\033[0m"
 
 def printError(string):
     print cPrint("red", "ERROR: ") + string
