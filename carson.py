@@ -19,12 +19,12 @@ def docs():
 
 def git(cur_path, path, command):
     os.chdir(path)
+    run = ["git", command]
 
     if command == "push" or command == "pull":
-        call(["git", command, "origin", "master"])
-    else:
-        call(["git", command])
+        run.extend(("origin", "master"))
 
+    call(run)
     os.chdir(cur_path)
 
 config_dir = os.path.expanduser("~") + "/.carson"
