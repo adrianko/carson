@@ -27,6 +27,8 @@ def git(cur_path, path, command):
 
     os.chdir(cur_path)
 
+config_dir = os.path.expanduser("~") + "/.carson"
+config_file = config_dir + "/repositories"
 args = sys.argv
 
 if len(args) >= 2:
@@ -38,15 +40,14 @@ if len(args) >= 2:
 
     if command:
         current_path = os.path.dirname(os.path.realpath(__file__))
-        repositories_path = expanduser("~") + "/.carson/repositories"
 
-        if not os.path.isdir(expanduser("~") + "/.carson"):
-            os.makedirs(expanduser("~") + "/.carson")
+        if not os.path.isdir(config_dir):
+            os.makedirs(config_dir)
 
-        if not os.path.exists(repositories_path):
-            open(repositories_path, "a").close()
+        if not os.path.exists(config_file):
+            open(config_file, "a").close()
 
-        repositories_file = open(repositories_path, "r")
+        repositories_file = open(config_file, "r")
         registered = {}
 
         for r in repositories_file:
@@ -63,7 +64,7 @@ if len(args) >= 2:
                 repo_path = repos[1].strip()
 
                 if repo_name not in registered.keys():
-                    with open(repositories_path, "a") as register:
+                    with open(config_file, "a") as register:
                         register.write(repo_name + " = " + repo_path + "\n")
                     print "SUCCESS: " + repo_name + " registered at path " + repo_path
                 else:
@@ -75,9 +76,9 @@ if len(args) >= 2:
                 repo_name = repos[0].strip()
 
                 if repo_name in registered.keys():
-                    open(repositories_path, "w").close()
+                    open(config_file, "w").close()
 
-                    with open(repositories_path, "a") as register:
+                    with open(config_file, "a") as register:
                         for r, p in registered.iteritems():
                             if r != repo_name:
                                 register.write(r + " = " + p + "\n")
