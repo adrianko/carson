@@ -3,7 +3,6 @@
 from subprocess import call
 import sys
 import os
-from os.path import expanduser
 
 """
 TODO Add repo modify
