@@ -21,8 +21,7 @@ def git(cur_path, path, command):
     os.chdir(path)
     run = ["git", command]
 
-    if command == "push" or command == "pull":
-        run.extend(("origin", "master"))
+    if command == "push" or command == "pull": run.extend(("origin", "master"))
 
     call(run)
     os.chdir(cur_path)
@@ -47,11 +46,8 @@ if len(args) >= 2:
     if command:
         current_path = os.path.dirname(os.path.realpath(__file__))
 
-        if not os.path.isdir(config_dir):
-            os.makedirs(config_dir)
-
-        if not os.path.exists(config_file):
-            open(config_file, "a").close()
+        if not os.path.isdir(config_dir): os.makedirs(config_dir)
+        if not os.path.exists(config_file): open(config_file, "a").close()
 
         repositories_file = open(config_file, "r")
         registered = {}
@@ -61,10 +57,8 @@ if len(args) >= 2:
             registered[split[0].strip()] = split[1].strip()
 
         if command == "register":
-            if len(repos) == 0:
-                printError("Need a name and a path")
-            elif len(repos) == 1:
-                printError("Need a path")
+            if len(repos) == 0: printError("Need a name and a path")
+            elif len(repos) == 1: printError("Need a path")
             else:
                 repo_name = repos[0].strip()
                 repo_path = repos[1].strip()
@@ -73,11 +67,9 @@ if len(args) >= 2:
                     with open(config_file, "a") as register:
                         register.write(repo_name + " = " + repo_path + "\n")
                     printSuccess(repo_name + " registered at path " + repo_path)
-                else:
-                    printError(repo_name + " already registered at path " + registered[repo_name])
+                else: printError(repo_name + " already registered at path " + registered[repo_name])
         elif command == "unregister":
-            if len(repos) == 0:
-                printError("Need a name")
+            if len(repos) == 0: printError("Need a name")
             else:
                 repo_name = repos[0].strip()
 
@@ -86,10 +78,8 @@ if len(args) >= 2:
 
                     with open(config_file, "a") as register:
                         for r, p in registered.iteritems():
-                            if r != repo_name:
-                                register.write(r + " = " + p + "\n")
-                            else:
-                                printSuccess(repo_name + " unregistered")
+                            if r != repo_name: register.write(r + " = " + p + "\n")
+                            else: printSuccess(repo_name + " unregistered")
                 else:
                     printError(repo_name + " is not a registered repo")
         elif command == "list":
@@ -98,30 +88,22 @@ if len(args) >= 2:
             if len(registered) > 0:
                 print cPrint("bold", "Repo".ljust(pad_length, " ") + "Path")
 
-                for r, p in registered.iteritems():
-                    print r.ljust(pad_length, " ") + p
-            else:
-                print "No repos registered"
+                for r, p in registered.iteritems(): print r.ljust(pad_length, " ") + p
+            else: print "No repos registered"
         elif command == "push" or command == "pull":
             if len(repos) > 0:
                 for r in repos:
-                    if r in registered.keys():
-                        git(current_path, registered[r], command)
-                    else:
-                        printError(r + " is not a registered repo")
+                    if r in registered.keys(): git(current_path, registered[r], command)
+                    else: printError(r + " is not a registered repo")
             else:
-                for r, p in registered.iteritems():
-                    git(current_path, registered[r], command)
+                for r, p in registered.iteritems(): git(current_path, registered[r], command)
         elif command == "status":
             if len(repos) > 0:
                 for r in repos:
-                    if r in registered.keys():
-                        git(current_path, registered[r], command)
-                    else:
-                        printError(r + " is not a registered repo")
+                    if r in registered.keys(): git(current_path, registered[r], command)
+                    else: printError(r + " is not a registered repo")
             else:
-                for r, p in registered.iteritems():
-                    git(current_path, registered[r], command)
+                for r, p in registered.iteritems(): git(current_path, registered[r], command)
         elif command == "modify":
             if len(repos) > 1:
                 repo_name = repos[0].strip()
@@ -141,22 +123,15 @@ if len(args) >= 2:
                             modified = True
                             break
 
-                    if modified is False:
-                        printError("path already exist with same name")
+                    if modified is False: printError("path already exist with same name")
                     else:
                         open(config_file, "w").close()
 
                         with open(config_file, "a") as register:
-                            for r, p in registered.iteritems():
-                                register.write(r + " = " + p + "\n")
+                            for r, p in registered.iteritems(): register.write(r + " = " + p + "\n")
                         printSuccess(repo_name + " now at " + repo_path)
-                else:
-                    printError("both repo and path do not exist")
-            else:
-                printError("need both a repo and a path to modify")
-        else:
-            docs()
-    else:
-        docs()
-else:
-    docs()
+                else: printError("both repo and path do not exist")
+            else: printError("need both a repo and a path to modify")
+        else: docs()
+    else: docs()
+else: docs()
