@@ -121,6 +121,28 @@ if len(args) >= 2:
             else:
                 for r, p in registered.iteritems():
                     git(current_path, registered[r], command)
+        elif command == "modify":
+            if len(repos) > 1:
+                repo_name = repos[0].strip()
+                repo_path = repos[1].strip()
+
+                if repo_name in registered.keys() or repo_path in registered.values():
+                    modified = False
+                    for r, p in registered.iteritems():
+                        if r == repo_name and p != repo_path:
+                            modified = True
+                            pass
+                        elif r != repo_name and p == repo_path:
+                            modified = True
+
+                    if modified is False:
+                        print cPrint("red", "ERROR: ") + "path already exist with same name"
+                    else:
+                        print cPrint("green", "SUCCESS: ") + repo_name + " now at " + repo_path
+                else:
+                    print cPrint("red", "ERROR: ") + "both repo and path do not exist"
+            else:
+                print cPrint("red", "ERROR: ") + "need both a repo and a path to modify"
         else:
             docs()
     else:
