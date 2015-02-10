@@ -16,6 +16,7 @@ def docs():
     print "push <repo>, <repo> ...     Push unsynced commits to origin/master on all repos"
     print "register <repo> <path>      Register a repo"
     print "unregister <repo>           Unregister a repo"
+    print "modify <repo> <path>        Modify either the repo name or path"
 
 def git(cur_path, path, command):
     os.chdir(path)
