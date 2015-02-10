@@ -32,6 +32,12 @@ def printError(string): print cPrint("red", "ERROR: ") + string
 
 def printSuccess(string): print cPrint("green", "SUCCESS: ") + string
 
+def rebuildFile(config_file, registered):
+    open(config_file, "w").close()
+
+    with open(config_file, "a") as register:
+        for r, p in registered.iteritems(): register.write(r + " = " + p + "\n")
+
 config_dir = os.path.expanduser("~") + "/.carson"
 config_file = config_dir + "/repositories"
 args = sys.argv
@@ -113,13 +119,9 @@ if len(args) >= 2:
                         if r != repo_name and p == repo_path:
                             del registered[r]
                             break
-                    
+
                     registered[repo_name] = repo_path
-                    open(config_file, "w").close()
-
-                    with open(config_file, "a") as register:
-                        for r, p in registered.iteritems(): register.write(r + " = " + p + "\n")
-
+                    rebuildFile(config_file, registered)
                     printSuccess(repo_name + " now at " + repo_path)
 
                 else: printError("both repo and path do not exist")
