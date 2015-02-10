@@ -79,8 +79,7 @@ if len(args) >= 2:
                         for r, p in registered.iteritems():
                             if r != repo_name: register.write(r + " = " + p + "\n")
                             else: printSuccess(repo_name + " unregistered")
-                else:
-                    printError(repo_name + " is not a registered repo")
+                else: printError(repo_name + " is not a registered repo")
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
 
@@ -107,27 +106,22 @@ if len(args) >= 2:
             if len(repos) > 1:
                 repo_name, repo_path = repos
 
-                if repo_name in registered.keys() or repo_path in registered.values():
-                    modified = False
-
+                if repo_name in registered.keys() and repo_path in registered.values():
+                    printError("path already exists with same name")
+                elif repo_name in registered.keys() or repo_path in registered.values():
                     for r, p in registered.iteritems():
-                        if r == repo_name and p != repo_path:
-                            registered[repo_name] = repo_path
-                            modified = True
-                            break
-                        elif r != repo_name and p == repo_path:
+                        if r != repo_name and p == repo_path:
                             del registered[r]
-                            registered[repo_name] = repo_path
-                            modified = True
                             break
+                    
+                    registered[repo_name] = repo_path
+                    open(config_file, "w").close()
 
-                    if modified is False: printError("path already exist with same name")
-                    else:
-                        open(config_file, "w").close()
+                    with open(config_file, "a") as register:
+                        for r, p in registered.iteritems(): register.write(r + " = " + p + "\n")
 
-                        with open(config_file, "a") as register:
-                            for r, p in registered.iteritems(): register.write(r + " = " + p + "\n")
-                        printSuccess(repo_name + " now at " + repo_path)
+                    printSuccess(repo_name + " now at " + repo_path)
+
                 else: printError("both repo and path do not exist")
             else: printError("need both a repo and a path to modify")
         else: docs()
