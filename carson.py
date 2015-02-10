@@ -18,6 +18,16 @@ def docs():
     print "register <repo> <path>      Register a repo"
     print "unregister <repo>           Unregister a repo"
 
+def git(cur_path, path, command):
+    os.chdir(path)
+
+    if command == "push" or command == "pull":
+        call(["git", command, "origin", "master"])
+    else:
+        call(["git", command])
+
+    os.chdir(cur_path)
+
 args = sys.argv
 
 if len(args) >= 2:
