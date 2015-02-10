@@ -21,7 +21,7 @@ def docs():
 
 args = sys.argv
 
-if len(args) > 2:
+if len(args) >= 2:
     # remove script
     args.pop(0)
 
