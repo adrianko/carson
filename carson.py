@@ -27,14 +27,11 @@ def git(cur_path, path, command):
     call(run)
     os.chdir(cur_path)
 
-def cPrint(colour, string):
-    return "\033[" + {"green": "92", "red": "91", "bold": "1"}[colour] + "m" + string + "\033[0m"
+def cPrint(colour, string): return "\033[" + {"green": "92", "red": "91", "bold": "1"}[colour] + "m" + string + "\033[0m"
 
-def printError(string):
-    print cPrint("red", "ERROR: ") + string
+def printError(string): print cPrint("red", "ERROR: ") + string
 
-def printSuccess(string):
-    print cPrint("green", "SUCCESS: ") + string
+def printSuccess(string): print cPrint("green", "SUCCESS: ") + string
 
 config_dir = os.path.expanduser("~") + "/.carson"
 config_file = config_dir + "/repositories"
