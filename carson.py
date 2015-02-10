@@ -72,8 +72,8 @@ if len(args) >= 2:
                 repo_name, repo_path = repos
 
                 if repo_name not in registered.keys():
-                    with open(config_file, "a") as register:
-                        register.write(repo_name + " = " + repo_path + "\n")
+                    registered[repo_name] = repo_path
+                    rebuildFile(config_file, registered)
                     printSuccess(repo_name + " registered at path " + repo_path)
                 else: printError(repo_name + " already registered at path " + registered[repo_name])
         elif command == "unregister":
