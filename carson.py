@@ -89,8 +89,13 @@ if len(args) >= 2:
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
 
-            for r, p in registered.iteritems():
-                print r.ljust(pad_length, " ") + p
+            if len(registered) > 0:
+                print "Repo".ljust(pad_length, " ") + "Path"
+
+                for r, p in registered.iteritems():
+                    print r.ljust(pad_length, " ") + p
+            else:
+                print "No repos registered"
         elif command == "push" or command == "pull":
             if len(repos) > 0:
                 for r in repos:
