@@ -8,7 +8,6 @@ from os.path import expanduser
 """
 TODO Add repo modify
 TODO Suppress output if up to date and display custom message
-TODO Add status command for all or repo list
 """
 def docs():
     print "Carson - git helper tool"
@@ -95,6 +94,20 @@ if len(args) >= 2:
                 for r, p in registered.iteritems():
                     os.chdir(registered[r])
                     call(["git", command, "origin", "master"])
+                    os.chdir(current_path)
+        elif command == "status":
+            if len(repos) > 0:
+                for r in repos:
+                    if r in registered.keys():
+                        os.chdir(registered[r])
+                        call(["git", command])
+                        os.chdir(current_path)
+                    else:
+                        print r + " is not a registered repo"
+            else:
+                for r, p in registered.iteritems():
+                    os.chdir(registered[r])
+                    call(["git", command])
                     os.chdir(current_path)
         else:
             docs()
