@@ -27,6 +27,10 @@ def git(cur_path, path, command):
     call(run)
     os.chdir(cur_path)
 
+def cPrint(colour, string):
+    colours = { "green": "92", "red": "91", "bold": "1" }
+    return "\033[" + colours[colour] + "m" + string + "\033[0m"
+
 config_dir = os.path.expanduser("~") + "/.carson"
 config_file = config_dir + "/repositories"
 args = sys.argv
