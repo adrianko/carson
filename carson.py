@@ -95,30 +95,22 @@ if len(args) >= 2:
             if len(repos) > 0:
                 for r in repos:
                     if r in registered.keys():
-                        os.chdir(registered[r])
-                        call(["git", command, "origin", "master"])
-                        os.chdir(current_path)
+                        git(current_path, registered[r], command)
                     else:
                         print r + " is not a registered repo"
             else:
                 for r, p in registered.iteritems():
-                    os.chdir(registered[r])
-                    call(["git", command, "origin", "master"])
-                    os.chdir(current_path)
+                    git(current_path, registered[r], command)
         elif command == "status":
             if len(repos) > 0:
                 for r in repos:
                     if r in registered.keys():
-                        os.chdir(registered[r])
-                        call(["git", command])
-                        os.chdir(current_path)
+                        git(current_path, registered[r], command)
                     else:
                         print r + " is not a registered repo"
             else:
                 for r, p in registered.iteritems():
-                    os.chdir(registered[r])
-                    call(["git", command])
-                    os.chdir(current_path)
+                    git(current_path, registered[r], command)
         else:
             docs()
     else:
