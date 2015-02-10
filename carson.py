@@ -9,7 +9,7 @@ TODO Add repo modify
 TODO Suppress output if up to date and display custom message
 """
 def docs():
-    print "Carson - git helper tool"
+    print "\033[1mCarson - git helper tool\033[0m"
     print "list                        List all registered repos"
     print "status <repo>, <repo> ...   Show status of all repos"
     print "pull <repo>, <repo> ...     Pull commits from origin/master on all repos"
@@ -56,9 +56,9 @@ if len(args) >= 2:
 
         if command == "register":
             if len(repos) == 0:
-                print "Need a name and a path"
+                print "\033[91mERROR:\033[0m " + "Need a name and a path"
             elif len(repos) == 1:
-                print "Need a path"
+                print "\033[91mERROR:\033[0m " + "Need a path"
             else:
                 repo_name = repos[0].strip()
                 repo_path = repos[1].strip()
@@ -66,12 +66,12 @@ if len(args) >= 2:
                 if repo_name not in registered.keys():
                     with open(config_file, "a") as register:
                         register.write(repo_name + " = " + repo_path + "\n")
-                    print "SUCCESS: " + repo_name + " registered at path " + repo_path
+                    print "\033[92mSUCCESS:033[0m " + repo_name + " registered at path " + repo_path
                 else:
-                    print "ERROR: " + repo_name + " already registered at path " + registered[repo_name]
+                    print "\033[91mERROR:\033[0m " + repo_name + " already registered at path " + registered[repo_name]
         elif command == "unregister":
             if len(repos) == 0:
-                print "Need a name"
+                print "\033[91mERROR:\033[0m " + "Need a name"
             else:
                 repo_name = repos[0].strip()
 
@@ -83,14 +83,14 @@ if len(args) >= 2:
                             if r != repo_name:
                                 register.write(r + " = " + p + "\n")
                             else:
-                                print "SUCCESS: " + repo_name + " unregistered"
+                                print "\033[92mSUCCESS:033[0m " + repo_name + " unregistered"
                 else:
-                    print "ERROR: " + repo_name + " isn't registered"
+                    print "\033[91mERROR:\033[0m " + repo_name + " is not a registered repo"
         elif command == "list":
             pad_length = max(len(x) for x in registered) + 5
 
             if len(registered) > 0:
-                print "Repo".ljust(pad_length, " ") + "Path"
+                print "\033[1m" + "Repo".ljust(pad_length, " ") + "Path\033[0m"
 
                 for r, p in registered.iteritems():
                     print r.ljust(pad_length, " ") + p
@@ -102,7 +102,7 @@ if len(args) >= 2:
                     if r in registered.keys():
                         git(current_path, registered[r], command)
                     else:
-                        print r + " is not a registered repo"
+                        print "\033[91mERROR:\033[0m " + r + " is not a registered repo"
             else:
                 for r, p in registered.iteritems():
                     git(current_path, registered[r], command)
@@ -112,7 +112,7 @@ if len(args) >= 2:
                     if r in registered.keys():
                         git(current_path, registered[r], command)
                     else:
-                        print r + " is not a registered repo"
+                        print "\033[91mERROR:\033[0m " + r + " is not a registered repo"
             else:
                 for r, p in registered.iteritems():
                     git(current_path, registered[r], command)
