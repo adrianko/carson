@@ -41,7 +41,7 @@ if len(args) >= 2:
     args.pop(0)
 
     command = args.pop(0)
-    repos = [repo for repo in args]
+    repos = [repo.strip() for repo in args]
 
     if command:
         current_path = os.path.dirname(os.path.realpath(__file__))
@@ -60,8 +60,7 @@ if len(args) >= 2:
             if len(repos) == 0: printError("Need a name and a path")
             elif len(repos) == 1: printError("Need a path")
             else:
-                repo_name = repos[0].strip()
-                repo_path = repos[1].strip()
+                repo_name, repo_path = repos
 
                 if repo_name not in registered.keys():
                     with open(config_file, "a") as register:
@@ -71,7 +70,7 @@ if len(args) >= 2:
         elif command == "unregister":
             if len(repos) == 0: printError("Need a name")
             else:
-                repo_name = repos[0].strip()
+                repo_name = repos[0]
 
                 if repo_name in registered.keys():
                     open(config_file, "w").close()
@@ -106,8 +105,7 @@ if len(args) >= 2:
                 for r, p in registered.iteritems(): git(current_path, registered[r], command)
         elif command == "modify":
             if len(repos) > 1:
-                repo_name = repos[0].strip()
-                repo_path = repos[1].strip()
+                repo_name, repo_path = repos
 
                 if repo_name in registered.keys() or repo_path in registered.values():
                     modified = False
