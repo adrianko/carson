@@ -32,6 +32,12 @@ def cPrint(colour, string):
     colours = { "green": "92", "red": "91", "bold": "1" }
     return "\033[" + colours[colour] + "m" + string + "\033[0m"
 
+def printError(string):
+    print cPrint("red", "ERROR: ") + string
+
+def printSuccess(string):
+    print cPrint("green", "SUCCESS: ") + string
+
 config_dir = os.path.expanduser("~") + "/.carson"
 config_file = config_dir + "/repositories"
 args = sys.argv
