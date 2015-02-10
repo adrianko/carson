@@ -5,7 +5,6 @@ import sys
 import os
 
 """
-TODO Add repo modify
 TODO Suppress output if up to date and display custom message
 """
 def docs():
