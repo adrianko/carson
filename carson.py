@@ -25,8 +25,15 @@ def git(cur_path, repo, path, command):
     if command == "push" or command == "pull": run.extend(("origin", "master"))
 
     result = check_output(run)
-    if "Your branch is up-to-date with 'origin/master'" not in result:
-        print result
+
+    if "up-to-date with 'origin/master'" in result:
+        print repo + " up-to-date with 'origin/master'"
+    elif "ahead of 'origin/master'" in result or "behind of 'origin/master'" in result:
+        result = result.split("\n")[1].replace("Your branch is ", "")
+        print repo + " " + result
+    else:
+        print repo + "\n" + result
+
     os.chdir(cur_path)
 
 def colourise(colour, string):
