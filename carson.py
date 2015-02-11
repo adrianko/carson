@@ -26,11 +26,11 @@ def git(cur_path, repo, path, command):
 
     result = check_output(run)
 
-    if "up-to-date with 'origin/master'" in result:
-        print repo + " up-to-date with 'origin/master'"
-    elif "ahead of 'origin/master'" in result or "behind of 'origin/master'" in result:
+    if command == "status":
         result = result.split("\n")[1].replace("Your branch is ", "")
         print repo + " " + result
+    elif (command == "pull" or command == "push") and "up-to-date" in result:
+        print repo + " " + " up-to-date"
     else:
         print repo + "\n" + result
 
