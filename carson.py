@@ -24,15 +24,13 @@ def git(cur_path, repo, path, command):
 
     if command == "push" or command == "pull": run.extend(("origin", "master"))
 
-    result = subprocess.check_output(run)
+
 
     if command == "status":
-        result = result.split("\n")[1].replace("Your branch is ", "")
-        print repo + " " + result
-    elif (command == "pull" or command == "push") and "up-to-date" in result:
-        print repo + " up-to-date"
+        print repo + " " + subprocess.check_output(run).split("\n")[1].replace("Your branch is ", "")
     else:
-        print repo + "\n" + result
+        print repo + "\n"
+        subprocess.call(run)
 
     os.chdir(cur_path)
 
