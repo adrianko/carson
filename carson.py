@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from subprocess import call
+from subprocess import call, check_output
 import sys
 import os
 import platform
