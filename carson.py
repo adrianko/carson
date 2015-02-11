@@ -5,9 +5,6 @@ import sys
 import os
 import platform
 
-"""
-TODO Suppress output if up to date and display custom message
-"""
 def docs():
     print colourise("bold", "Carson - git helper tool")
     print "list                        List all registered repos"
