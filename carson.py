@@ -18,13 +18,15 @@ def docs():
     print "unregister <repo>           Unregister a repo"
     print "modify <repo> <path>        Modify either the repo name or path"
 
-def git(cur_path, path, command):
+def git(cur_path, repo, path, command):
     os.chdir(path)
     run = ["git", command]
 
     if command == "push" or command == "pull": run.extend(("origin", "master"))
 
-    call(run)
+    result = check_output(run)
+    if "Your branch is up-to-date with 'origin/master'" not in result:
+        print result
     os.chdir(cur_path)
 
 def colourise(colour, string):
@@ -97,17 +99,17 @@ if len(args) >= 2:
         elif command == "push" or command == "pull":
             if len(repos) > 0:
                 for r in repos:
-                    if r in registered.keys(): git(current_path, registered[r], command)
+                    if r in registered.keys(): git(current_path, r, registered[r], command)
                     else: print_error(r + " is not a registered repo")
             else:
-                for r, p in registered.iteritems(): git(current_path, registered[r], command)
+                for r, p in registered.iteritems(): git(current_path, r, registered[r], command)
         elif command == "status":
             if len(repos) > 0:
                 for r in repos:
-                    if r in registered.keys(): git(current_path, registered[r], command)
+                    if r in registered.keys(): git(current_path, r, registered[r], command)
                     else: print_error(r + " is not a registered repo")
             else:
-                for r, p in registered.iteritems(): git(current_path, registered[r], command)
+                for r, p in registered.iteritems(): git(current_path, r, registered[r], command)
         elif command == "modify":
             if len(repos) > 1:
                 repo_name, repo_path = repos
