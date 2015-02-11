@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from subprocess import call, check_output
+import subprocess
 import sys
 import os
 import platform
@@ -24,13 +24,13 @@ def git(cur_path, repo, path, command):
 
     if command == "push" or command == "pull": run.extend(("origin", "master"))
 
-    result = check_output(run)
+    result = subprocess.check_output(run)
 
     if command == "status":
         result = result.split("\n")[1].replace("Your branch is ", "")
         print repo + " " + result
     elif (command == "pull" or command == "push") and "up-to-date" in result:
-        print repo + " " + " up-to-date"
+        print repo + " up-to-date"
     else:
         print repo + "\n" + result
 
