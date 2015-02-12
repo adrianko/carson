@@ -5,6 +5,9 @@ import sys
 import os
 import platform
 
+"""
+TODO check for all - commits waiting for push, changes staged and unstaged changes
+"""
 def docs():
     print colourise("bold", "Carson - git helper tool")
     print "list                        List all registered repos"
