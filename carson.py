@@ -24,7 +24,7 @@ def git(cur_path, repo, path, command):
     if command == "status":
         result = subprocess.check_output(run)
         if "nothing to commit" in result:
-            print colourise("bold", repo) + " " + result.split("\n")[1].replace("Your branch is ", "")
+            print colourise("bold", repo) + result.split("\n")[1].replace("Your branch", "")
         else:
             print colourise("bold", repo) + " " + result
     else:
