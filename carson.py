@@ -22,7 +22,11 @@ def git(cur_path, repo, path, command):
     if command == "push" or command == "pull": run.extend(("origin", "master"))
 
     if command == "status":
-        print colourise("bold", repo) + " " + subprocess.check_output(run).split("\n")[1].replace("Your branch is ", "")
+        result = subprocess.check_output(run)
+        if "nothing to commit" in result:
+            print colourise("bold", repo) + " " + result.split("\n")[1].replace("Your branch is ", "")
+        else:
+            print colourise("bold", repo) + " " + result
     else:
         print colourise("bold", repo)
         subprocess.call(run)
