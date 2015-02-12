@@ -27,6 +27,8 @@ def git(cur_path, repo, path, command):
             print colourise("bold", repo) + result.split("\n")[1].replace("Your branch", "")
         elif "Changes to be committed" in result:
             print colourise("bold", repo) + " has changes to be committed"
+        elif "Changes not staged" in result:
+            print colourise("bold", repo) + " has unstaged changes"
         else:
             print colourise("bold", repo) + " " + result
     else:
