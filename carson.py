@@ -7,6 +7,8 @@ import platform
 
 """
 TODO check for all - commits waiting for push, changes staged and unstaged changes
+TODO Ignore push/pull for repos that are already up to date.
+TODO Colourise commits ahead or behind statements
 """
 def docs():
     print colourise("bold", "Carson - git helper tool")
