@@ -27,10 +27,12 @@ def git(cur_path, repo, path, command):
     os.chdir(path)
     run = ["git", command]
 
-    if command == "push" or command == "pull": run.extend(("origin", "master"))
+    if command == "push" or command == "pull":
+        run.extend(("origin", "master"))
 
     if command == "status":
         result = subprocess.check_output(run)
+
         if "nothing to commit" in result:
             print colourise("bold", repo) + result.split("\n")[1].replace("Your branch", "")
         elif "Changes to be committed" in result:
@@ -48,14 +50,18 @@ def git(cur_path, repo, path, command):
 
 
 def colourise(colour, string):
-    if platform.system() == "Windows": return string
+    if platform.system() == "Windows":
+        return string
+
     return "\033[" + {"green": "92", "red": "91", "bold": "1"}[colour] + "m" + string + "\033[0m"
 
 
-def print_error(string): print colourise("red", "ERROR: ") + string
+def print_error(string):
+    print colourise("red", "ERROR: ") + string
 
 
-def print_success(string): print colourise("green", "SUCCESS: ") + string
+def print_success(string):
+    print colourise("green", "SUCCESS: ") + string
 
 
 def rebuild_file(config_file, registered):
@@ -78,7 +84,8 @@ if len(args) >= 2:
     if command:
         current_path = os.path.dirname(os.path.realpath(__file__))
 
-        if not os.path.exists(config_file): open(config_file, "a").close()
+        if not os.path.exists(config_file):
+            open(config_file, "a").close()
 
         repositories_file = open(config_file, "r")
         registered = {}
@@ -119,7 +126,8 @@ if len(args) >= 2:
             if len(registered) > 0:
                 print colourise("bold", "Repo".ljust(pad_length, " ") + "Path")
 
-                for r, p in registered.iteritems(): print r.ljust(pad_length, " ") + p
+                for r, p in registered.iteritems():
+                    print r.ljust(pad_length, " ") + p
             else:
                 print "No repos registered"
         elif command == "push" or command == "pull":
@@ -130,7 +138,8 @@ if len(args) >= 2:
                     else:
                         print_error(r + " is not a registered repo")
             else:
-                for r, p in registered.iteritems(): git(current_path, r, registered[r], command)
+                for r, p in registered.iteritems():
+                    git(current_path, r, registered[r], command)
         elif command == "status":
             if len(repos) > 0:
                 for r in repos:
@@ -139,7 +148,8 @@ if len(args) >= 2:
                     else:
                         print_error(r + " is not a registered repo")
             else:
-                for r, p in registered.iteritems(): git(current_path, r, registered[r], command)
+                for r, p in registered.iteritems():
+                    git(current_path, r, registered[r], command)
         elif command == "modify":
             if len(repos) > 1:
                 repo_name, repo_path = repos
