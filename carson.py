@@ -65,8 +65,7 @@ def rebuild_file(config_file, registered):
         for r, p in registered.iteritems(): register.write(r + " = " + p + "\n")
 
 
-config_dir = os.path.expanduser("~") + "/.carson"
-config_file = config_dir + "/repositories"
+config_file = os.path.expanduser("~") + "/.carson"
 args = sys.argv
 
 if len(args) >= 2:
@@ -79,7 +78,6 @@ if len(args) >= 2:
     if command:
         current_path = os.path.dirname(os.path.realpath(__file__))
 
-        if not os.path.isdir(config_dir): os.makedirs(config_dir)
         if not os.path.exists(config_file): open(config_file, "a").close()
 
         repositories_file = open(config_file, "r")
