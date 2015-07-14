@@ -74,11 +74,17 @@ def rebuild_file(config_file, registered):
 config_file = os.path.expanduser("~") + "/.carson"
 args = sys.argv
 
+commands = {"pl": "pull", "ps": "push", "ls": "list", "st": "status"}
+
 if len(args) >= 2:
     # remove script
     args.pop(0)
 
     command = args.pop(0)
+ 
+    if command in commands.keys():
+        command = commands[command]
+
     repos = [repo.strip() for repo in args]
 
     if command:
